@@ -24,6 +24,8 @@
     (not (jarra (capacidad ?max) (litros ?max)))
     ?jarra <- (jarra (capacidad ?c) (litros ?l))
     (test (< ?l ?c))
+    ; se rellena la jarra mas grande
+    (test (= ?c 4))
     =>
     (modify ?jarra (litros ?c))
 )
@@ -32,8 +34,10 @@
 ; No interesa vaciar una jarra si la otra ya está vacía (nos quedamos como al principio)
 (defrule vaciar_jarra 
     (not (jarra (capacidad ?c) (litros 0)))
-    ?jarra <- (jarra (litros ?l)) 
+    ?jarra <- (jarra (capacidad ?c) (litros ?l)) 
     (test (> ?l 0))
+    ; se rellena la jarra mas pequeña
+    (test (= ?c 3))
     => 
     (modify ?jarra (litros 0))
 )
@@ -45,9 +49,11 @@
     ; compruebo que jarra 1 y jarra 2 son distintas y que no están las 2 vacías
     (test (neq (+ ?l1 ?l2) 0))
     (test (neq ?jarra1 ?jarra2))
-    ; compruebo que el contenido de la jarra 1 es mayor que el contenido de la jarra 2
-    ; pero tengo que comprobar que cabe
-    (test (<= (+ ?l1 ?l2) ?c2)) 
+    ; comprobar que si sumo ambas caben en la jarra 2
+    (test (<= (+ ?l1 ?l2) ?c2))
+    ; comprobar que se vierte la que mayor tiene en la que menor tiene
+    (test (> ?l1 ?l2))
+    (test (< ?c2 ?c1))
     =>
     ; comprobar que la jarra 1 tiene 0 litros ya que vuelco todo en la jarra 2
     (modify ?jarra1 (litros 0))
