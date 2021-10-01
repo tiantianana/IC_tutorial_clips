@@ -19,7 +19,7 @@
 ; TODO: emplear hechos semáforos para regular la activación de reglas (por ej si jarra_vacía entonces se activa llenar_jarra)
 
 ; Regla llenar_jarra: pongo los litros al mismo valor que la capacidad
-(defrule llena-jarra
+(defrule llena_jarra
     ?jarra <- (jarra (capacidad ?c) (litros ?l))
     (test (< ?l ?c))
     =>
@@ -55,7 +55,7 @@
     ?jarra1 <- (jarra (capacidad ?c1) (litros ?l1)) 
     ?jarra2 <- (jarra (capacidad ?c2) (litros ?l2)) 
     (test (neq ?jarra1 ?jarra2)) 
-    (test (> (?l1 ?l2) ?c2)) 
+    (test (> (+ ?l1 ?l2) ?c2))
     ; creo que aqui hay q comprobar que si la suma de lo q hay en ambas jarras
     ; es menor a la capacidad total de la jarra 1.
     ; if ( la suma es menor que la capacidad significa que puedo volcar todo)
