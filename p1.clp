@@ -66,3 +66,13 @@
     (modify ?jarra1 (litros (- ?l1 (- ?c2 ?l2))))
     (modify ?jarra2 (litros ?c2))
 )
+
+; Comprueba terminacion
+(defrule acabar
+  (declare (salience 1000))
+  ?jarra <- (jarra (capacidad 4) (litros 2))
+  =>
+  (printout t "Fin" crlf)
+  (halt)
+)
+
