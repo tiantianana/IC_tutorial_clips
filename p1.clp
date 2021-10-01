@@ -19,15 +19,19 @@
 ; TODO: emplear hechos semáforos para regular la activación de reglas (por ej si jarra_vacía entonces se activa llenar_jarra)
 
 ; Regla llenar_jarra: pongo los litros al mismo valor que la capacidad
-(defrule llena_jarra
+; No interesa llenar una jarra si la otra ya lo está (alguna tendremos que vaciar luego)
+(defrule llenar_jarra
+    (not (jarra (capacidad ?max) (litros ?max)))
     ?jarra <- (jarra (capacidad ?c) (litros ?l))
     (test (< ?l ?c))
     =>
     (modify ?jarra (litros ?c))
 )
 
-; Regla vaciar_jarra: pongo los litros a 0
+; Regla vaciar_jarra: pongo los litros a 0.
+; No interesa vaciar una jarra si la otra ya está vacía (nos quedamos como al principio)
 (defrule vaciar_jarra 
+    (not (jarra (capacidad ?c) (litros 0)))
     ?jarra <- (jarra (litros ?l)) 
     (test (> ?l 0))
     => 
@@ -38,7 +42,8 @@
 (defrule volcar_jarra
     ?jarra1 <- (jarra (capacidad ?c1) (litros ?l1)) 
     ?jarra2 <- (jarra (capacidad ?c2) (litros ?l2)) 
-    ; compruebo que jarra 1 y jarra 2 son distintas
+    ; compruebo que jarra 1 y jarra 2 son distintas y que no están las 2 vacías
+    (test (neq (+ ?l1 ?l2) 0))
     (test (neq ?jarra1 ?jarra2))
     ; compruebo que el contenido de la jarra 1 es mayor que el contenido de la jarra 2
     ; pero tengo que comprobar que cabe
@@ -75,4 +80,3 @@
   (printout t "Fin" crlf)
   (halt)
 )
-
