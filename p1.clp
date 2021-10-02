@@ -96,4 +96,5 @@
   (halt)
 )
 
-; 
+; 1. Cuántos ciclos de ejecución tarda en llegar a la solución?
+; 2. Cambiar la estrategia de control a random, volver a ejecutar, cambia algo? Por qué?
