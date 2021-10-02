@@ -24,7 +24,6 @@
     (not (jarra (capacidad ?c) (litros ?c)))
     ?jarra <- (jarra (capacidad ?c) (litros ?l))
     (test (< ?l ?c))
-    (test (= ?c 4))
     ; se rellena la jarra mas grande
     =>
     (modify ?jarra (litros ?c))
@@ -37,13 +36,13 @@
     ?jarra <- (jarra (capacidad ?c) (litros ?l)) 
     (test (> ?l 0))
     ; se rellena la jarra mas pequeña
-    (test (= ?c 3))
     => 
     (modify ?jarra (litros 0))
 )
 
 ; Regla volcar_jarra: (vuelca el contenido de una jarra en la otra cuando cabe)
 (defrule volcar_jarra
+    (declare (salience 10))
     ?jarra1 <- (jarra (capacidad ?c1) (litros ?l1)) 
     ?jarra2 <- (jarra (capacidad ?c2) (litros ?l2)) 
     ; compruebo que jarra 1 y jarra 2 son distintas y que no están las 2 vacías
