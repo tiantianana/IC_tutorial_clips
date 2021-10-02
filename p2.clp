@@ -32,6 +32,7 @@
     =>
     (modify-instance ?jarra1 (litros 0))
     (modify-instance ?jarra2 (litros (+ ?l1 ?l2)))
+    (printout t "Volcado (" ?l1 "L, " ?c1 "C) en (" ?l2 "L, " ?c2 "C)"  crlf)
 )
 
 ; Llenar jarra
@@ -42,6 +43,7 @@
   (test (= ?l 0))
   =>
   (modify-instance ?jarra (litros ?c))
+  (printout t "Llenado (" ?l "L, " ?c "C)" crlf)
 )
 
 ; Vaciar jarra: ponemos los litros a 0.
@@ -58,6 +60,7 @@
     (test (= ?l1 ?c1))
     => 
     (modify-instance ?jarra1 (litros 0))
+    (printout t "Vaciado (" ?l1 "L, " ?c1 "C)" crlf)
 )
 
 (defrule verter_jarra 
@@ -69,6 +72,7 @@
     => 
     (modify-instance ?jarra1 (litros (- ?l1 (- ?c2 ?l2))))
     (modify-instance ?jarra2 (litros ?c2))
+    (printout t "Vertido (" ?l1 "L, " ?c1 "C) en (" ?l2 "L, " ?c2 "C)"  crlf)
 )
 
 ; Regla de salida: indica cuándo el sistema de producción ha alcanzado el estado final
