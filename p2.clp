@@ -19,6 +19,21 @@
   (of JARRA_GRANDE (litros 0))
 )
 
+(defrule volcar_jarra
+    ?jarra1 <- (object (is-a JARRA_GRANDE) (capacidad ?c1) (litros ?l1))
+    ?jarra2 <- (object (is-a JARRA_PEQUEÑA) (capacidad ?c2) (litros ?l2))
+    ; comprobamos que no están las 2 vacías, y que el contenido de ambas cabe en una
+    (test (neq (+ ?l1 ?l2) 0))
+    (test (neq ?jarra1 ?jarra2))
+    (test (<= (+ ?l1 ?l2) ?c2))
+    ; Se vuelca la que mayor tiene en la que menor tiene
+    (test (> ?l1 ?l2))
+    (test (> ?c1 ?c2))
+    =>
+    (modify-instance ?jarra1 (litros 0))
+    (modify-instance ?jarra2 (litros (+ ?l1 ?l2)))
+)
+
 ; Llenar jarra
 (defrule llenar_jarra
   (not (object (is-a JARRA) (capacidad ?c) (litros ?c)))
@@ -43,21 +58,6 @@
     (test (= ?l1 ?c1))
     => 
     (modify-instance ?jarra1 (litros 0))
-)
-
-(defrule volcar_jarra
-    ?jarra1 <- (object (is-a JARRA_GRANDE) (capacidad ?c1) (litros ?l1))
-    ?jarra2 <- (object (is-a JARRA_PEQUEÑA) (capacidad ?c2) (litros ?l2))
-    ; comprobamos que no están las 2 vacías, y que el contenido de ambas cabe en una
-    (test (neq (+ ?l1 ?l2) 0))
-    (test (neq ?jarra1 ?jarra2))
-    (test (<= (+ ?l1 ?l2) ?c2))
-    ; Se vuelca la que mayor tiene en la que menor tiene
-    (test (> ?l1 ?l2))
-    (test (> ?c1 ?c2))
-    =>
-    (modify-instance ?jarra1 (litros 0))
-    (modify-instance ?jarra2 (litros (+ ?l1 ?l2)))
 )
 
 (defrule verter_jarra 
