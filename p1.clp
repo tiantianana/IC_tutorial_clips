@@ -22,10 +22,13 @@
 ; No interesa llenar una jarra si la otra ya lo está (alguna tendremos que vaciar luego)
 (defrule llenar_jarra
     (not (jarra (capacidad ?c) (litros ?c)))
+    ; comprobamos que se llena la jarra grande
     ?jarra <- (jarra (capacidad ?c) (litros ?l))
+    ?jarra2 <- (jarra (capacidad ?c2) (litros ?l2))
+    (test (neq ?jarra ?jarra2)) 
+    (test (< ?c2 ?c))
+    ; comprobamos que caben mas litros
     (test (< ?l ?c))
-    (test (= ?c 4))
-    ; se rellena la jarra mas grande
     =>
     (modify ?jarra (litros ?c))
 )
@@ -34,16 +37,20 @@
 ; No interesa vaciar una jarra si la otra ya está vacía (nos quedamos como al principio)
 (defrule vaciar_jarra 
     (not (jarra (capacidad ?c) (litros 0)))
-    ?jarra <- (jarra (capacidad ?c) (litros ?l)) 
-    (test (> ?l 0))
     ; se rellena la jarra mas pequeña
-    (test (= ?c 3))
+    ?jarra <- (jarra (capacidad ?c) (litros ?l)) 
+    ?jarra2 <- (jarra (capacidad ?c2) (litros ?l2))
+    (test (neq ?jarra ?jarra2)) 
+    (test (> ?c2 ?c))
+    ; comprobamos que la jarra no esta vacia
+    (test (> ?l 0))
     => 
     (modify ?jarra (litros 0))
 )
 
 ; Regla volcar_jarra: (vuelca el contenido de una jarra en la otra cuando cabe)
 (defrule volcar_jarra
+    (declare (salience 10))
     ?jarra1 <- (jarra (capacidad ?c1) (litros ?l1)) 
     ?jarra2 <- (jarra (capacidad ?c2) (litros ?l2)) 
     ; compruebo que jarra 1 y jarra 2 son distintas y que no están las 2 vacías
@@ -63,16 +70,11 @@
 
 ; Regla verter_jarra: (vuelca todo lo que quepa de una jarra en la otra)
 (defrule verter_jarra 
+    (declare (salience 10))
     ?jarra1 <- (jarra (capacidad ?c1) (litros ?l1)) 
     ?jarra2 <- (jarra (capacidad ?c2) (litros ?l2)) 
     (test (neq ?jarra1 ?jarra2)) 
     (test (> (+ ?l1 ?l2) ?c2))
-    ; creo que aqui hay q comprobar que si la suma de lo q hay en ambas jarras
-    ; es menor a la capacidad total de la jarra 1.
-    ; if ( la suma es menor que la capacidad significa que puedo volcar todo)
-        ; por tanto igual que la anterior regla
-    ; else (no cabe todo en la jarra, entonces tengo que llenar solo X)
-    ; ¿hay que crear dos reglas?
     => 
     (modify ?jarra1 (litros (- ?l1 (- ?c2 ?l2))))
     (modify ?jarra2 (litros ?c2))
