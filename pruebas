@@ -1,0 +1,35 @@
+TRAYECTORIA OBJETIVO:
+
+Ciclo   Acción              Jarra_4L        Jarra_3L
+
+1       Llenar(Jarra_4L)    4               0
+2       Verter(Jarra_4L)    1               3
+3       Vaciar(Jarra_3L)    1               0
+4       Volcar(Jarra_4L)    0               1
+5       Llenar(Jarra_4L)    4               1
+6       Verter(Jarra_4L)    2               3
+
+
+
+TRAYECTORIA 1:
+
+Ciclo   Acción              Jarra_4L        Jarra_3L    Hechos semáforo
+
+0       -                   0               0           1_jarra_vacía
+1       Llenar(Jarra_4L)    4               0           1_jarra_vacía, 1_jarra_llena
+2       Verter(Jarra_4L)    1               3
+3       Vaciar(Jarra_3L)    1               0
+4       Volcar(Jarra_4L)    0               1
+5       Llenar(Jarra_4L)    4               1
+6       Verter(Jarra_4L)    2               3
+
+
+
+
+
+if 1_jarra_vacía :  NO VACIAR
+if 1_jarra_llena:   NO LLENAR
+
+LLENAR -> + 1_jarra_llena
+VACIAR -> + 1_jarra_vacía
+
