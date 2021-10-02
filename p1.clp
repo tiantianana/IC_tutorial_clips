@@ -23,14 +23,10 @@
     (declare (salience 5))
     ; No llenamos si ya hay una jarra totalmente llena
     (not (jarra (capacidad ?c) (litros ?c)))
-    ?jarra1 <- (jarra (capacidad ?c1) (litros ?l1))
-    ?jarra2 <- (jarra (capacidad ?c2) (litros ?l2))
-    (test (neq ?jarra1 ?jarra2)) 
-    ; siempre se llena la jarra más grande
-    (test (< ?c2 ?c1))
-    (test (< ?l1 ?c1))
+    ?jarra <- (jarra (capacidad ?c) (litros ?l))
+    (test (= ?l 0))
     =>
-    (modify ?jarra1 (litros ?c1))
+    (modify ?jarra (litros ?c))
 )
 
 ; Vaciar jarra: ponemos los litros a 0.
