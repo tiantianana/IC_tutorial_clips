@@ -11,7 +11,7 @@
 ; El estado inicial son dos hechos: las dos jarras vacías
 
 (deffacts estado_inicial_jarras
-    (jarra (capacidad 3))
+    (jarra (capacidad 2))
     (jarra (capacidad 4))
 )
 

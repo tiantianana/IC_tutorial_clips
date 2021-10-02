@@ -19,6 +19,16 @@
   (of JARRA_GRANDE (litros 0))
 )
 
+; Regla de salida: indica cuándo el sistema de producción ha alcanzado el estado final
+
+(defrule acabar
+  ?jarra <- (object (is-a JARRA) (litros 2))
+  =>
+  (printout t "Fin" crlf)
+  (unmake-instance ?jarra)
+  (halt)
+)
+
 (defrule volcar_jarra
     ?jarra1 <- (object (is-a JARRA_GRANDE) (capacidad ?c1) (litros ?l1))
     ?jarra2 <- (object (is-a JARRA_PEQUEÑA) (capacidad ?c2) (litros ?l2))
@@ -73,14 +83,4 @@
     (modify-instance ?jarra1 (litros (- ?l1 (- ?c2 ?l2))))
     (modify-instance ?jarra2 (litros ?c2))
     (printout t "Vertido (" ?l1 "L, " ?c1 "C) en (" ?l2 "L, " ?c2 "C)"  crlf)
-)
-
-; Regla de salida: indica cuándo el sistema de producción ha alcanzado el estado final
-
-(defrule acabar
-  ?jarra <- (object (is-a JARRA) (capacidad 4) (litros 2))
-  =>
-  (printout t "Fin" crlf)
-  (unmake-instance ?jarra)
-  (halt)
 )
