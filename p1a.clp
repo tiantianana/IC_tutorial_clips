@@ -42,8 +42,8 @@
     ?jarra2 <- (jarra (capacidad ?c2) (litros ?l2))
     (test (neq ?jarra ?jarra2)) 
     (test (> ?c2 ?c))
-    ; comprobamos que la jarra no esta vacia
-    (test (> ?l 0))
+    ; solo vaciar si esta llena
+    (test (= ?l ?c))
     => 
     (modify ?jarra (litros 0))
 )
@@ -70,7 +70,6 @@
 
 ; Regla verter_jarra: (vuelca todo lo que quepa de una jarra en la otra)
 (defrule verter_jarra 
-    (declare (salience 10))
     ?jarra1 <- (jarra (capacidad ?c1) (litros ?l1)) 
     ?jarra2 <- (jarra (capacidad ?c2) (litros ?l2)) 
     (test (neq ?jarra1 ?jarra2)) 
