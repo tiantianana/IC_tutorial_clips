@@ -23,6 +23,9 @@
 (defrule llenar_jarra
     (not (jarra (capacidad ?c) (litros ?c)))
     ?jarra <- (jarra (capacidad ?c) (litros ?l))
+    ?jarra2 <- (jarra (capacidad ?c2) (litros ?l2))
+    (test (neq ?jarra ?jarra2)) 
+    (test (< ?c2 ?c))
     (test (< ?l ?c))
     ; se rellena la jarra mas grande
     =>
@@ -34,6 +37,9 @@
 (defrule vaciar_jarra 
     (not (jarra (capacidad ?c) (litros 0)))
     ?jarra <- (jarra (capacidad ?c) (litros ?l)) 
+    ?jarra2 <- (jarra (capacidad ?c2) (litros ?l2))
+    (test (neq ?jarra ?jarra2)) 
+    (test (> ?c2 ?c))
     (test (> ?l 0))
     ; se rellena la jarra mas pequeña
     => 
@@ -62,6 +68,7 @@
 
 ; Regla verter_jarra: (vuelca todo lo que quepa de una jarra en la otra)
 (defrule verter_jarra 
+    (declare (salience 10))
     ?jarra1 <- (jarra (capacidad ?c1) (litros ?l1)) 
     ?jarra2 <- (jarra (capacidad ?c2) (litros ?l2)) 
     (test (neq ?jarra1 ?jarra2)) 
