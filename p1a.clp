@@ -22,12 +22,13 @@
 ; No interesa llenar una jarra si la otra ya lo está (alguna tendremos que vaciar luego)
 (defrule llenar_jarra
     (not (jarra (capacidad ?c) (litros ?c)))
+    ; comprobamos que se llena la jarra grande
     ?jarra <- (jarra (capacidad ?c) (litros ?l))
     ?jarra2 <- (jarra (capacidad ?c2) (litros ?l2))
     (test (neq ?jarra ?jarra2)) 
     (test (< ?c2 ?c))
+    ; comprobamos que caben mas litros
     (test (< ?l ?c))
-    ; se rellena la jarra mas grande
     =>
     (modify ?jarra (litros ?c))
 )
@@ -36,12 +37,13 @@
 ; No interesa vaciar una jarra si la otra ya está vacía (nos quedamos como al principio)
 (defrule vaciar_jarra 
     (not (jarra (capacidad ?c) (litros 0)))
+    ; se rellena la jarra mas pequeña
     ?jarra <- (jarra (capacidad ?c) (litros ?l)) 
     ?jarra2 <- (jarra (capacidad ?c2) (litros ?l2))
     (test (neq ?jarra ?jarra2)) 
     (test (> ?c2 ?c))
+    ; comprobamos que la jarra no esta vacia
     (test (> ?l 0))
-    ; se rellena la jarra mas pequeña
     => 
     (modify ?jarra (litros 0))
 )
@@ -73,12 +75,6 @@
     ?jarra2 <- (jarra (capacidad ?c2) (litros ?l2)) 
     (test (neq ?jarra1 ?jarra2)) 
     (test (> (+ ?l1 ?l2) ?c2))
-    ; creo que aqui hay q comprobar que si la suma de lo q hay en ambas jarras
-    ; es menor a la capacidad total de la jarra 1.
-    ; if ( la suma es menor que la capacidad significa que puedo volcar todo)
-        ; por tanto igual que la anterior regla
-    ; else (no cabe todo en la jarra, entonces tengo que llenar solo X)
-    ; ¿hay que crear dos reglas?
     => 
     (modify ?jarra1 (litros (- ?l1 (- ?c2 ?l2))))
     (modify ?jarra2 (litros ?c2))
