@@ -45,15 +45,23 @@
     (of MAMIFERO (subclase Hombre) (nombre Pepe) (razona Si) )
     (of AVE (subclase Albatros) (nombre Alf))
     (of AVE (subclase Pinguino) (nombre Chilly) (vuela No))
-    (of AVE (subclase Pinguino) (nombre Nani) (vuela No))
-    (of AVE (subclase Pinguino) (nombre Tatti) (vuela No))
+)
+; La base de hechos con los nombres de los pinguinos a imprimir.
+; Imprimiría Adam, Fran y Elena.
+
+(deffacts hechos-inicales
+    (Pinguino Adam)
+    (Pinguino Fran)
+    (Albatros Robin)
+    (Hombre Lola)
+    (Pinguino Elena)
 )
 
 ; Esta regla imprime exclusivamente la clase Ave y dentro de la clase
 ; especificamente el nombre de los pinguinos. 
 
 (defrule imprimir
-    (object (is-a AVE) (subclase Pinguino) (nombre ?n))
+    ?p <- (Pinguino ?n)
     =>
-    (printout t "Pinguino: " ?n  crlf)
+    (printout t ?n  crlf)
 )

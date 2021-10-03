@@ -1,3 +1,7 @@
+; Ana Tian Villanueva Conde 100405817
+; Yolanda Luque Hazañas 100405948
+
+
 ; Plantilla jarra con atributos capacidad y litros
 
 (deftemplate jarra

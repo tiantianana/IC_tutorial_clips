@@ -1,3 +1,6 @@
+; Ana Tian Villanueva Conde 100405817
+; Yolanda Luque Hazañas 100405948
+
 ; La clase JARRA es la clase inicial.
 ; De esta clase heredan las subclases Jarra_pequeña y jarra_grande.
 
