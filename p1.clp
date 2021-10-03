@@ -1,6 +1,7 @@
 ; Ana Tian Villanueva Conde 100405817
 ; Yolanda Luque Hazañas 100405948
 
+; Tutorial de CLIPS. Parte 1 de 2
 
 ; Plantilla jarra con atributos capacidad y litros
 

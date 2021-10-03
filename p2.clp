@@ -1,6 +1,8 @@
 ; Ana Tian Villanueva Conde 100405817
 ; Yolanda Luque Hazañas 100405948
 
+; Tutorial de CLIPS. Parte 2 de 2
+
 ; La clase JARRA es la clase inicial.
 ; De esta clase heredan las subclases Jarra_pequeña y jarra_grande.
 

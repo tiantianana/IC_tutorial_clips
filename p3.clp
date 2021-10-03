@@ -1,3 +1,8 @@
+; Ana Tian Villanueva Conde 100405817
+; Yolanda Luque Hazañas 100405948
+
+; Tutorial de CLIPS. Parte 2 de 2
+
 ; La superclase animal es el initial object con los atributos nombre, piel, vuela y razona.
 ; Estos atributos son comunes a todas las subclases pero no estan inicalizadas en la clase
 ; ya que cada clase tiene sus propias caracteristicas.
