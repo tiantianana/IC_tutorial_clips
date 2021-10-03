@@ -1,3 +1,7 @@
+; La superclase animal es el initial object con los atributos nombre, piel, vuela y razona.
+; Estos atributos son comunes a todas las subclases pero no estan inicalizadas en la clase
+; ya que cada clase tiene sus propias caracteristicas.
+
 (defclass ANIMAL
 	(is-a INITIAL-OBJECT)
 	(slot nombre (type STRING))
@@ -7,6 +11,9 @@
     (slot subclase (type SYMBOL))
 )
 
+; La clase mamifero tiene las caracteristicas de animal, pero tiene pelo, no vuela y no razona por default.
+; Dentro de esta clase se encuentra la subclase hombre que si que razona.
+
 (defclass MAMIFERO
 	(is-a ANIMAL)
 	(slot piel (default Pelo))
@@ -14,6 +21,10 @@
     (slot razona (default No))
     (slot subclase (allowed-symbols Hombre))
 )
+
+; La clase ave hereda las caracteristicas de animal.
+; Dentro de la clase ave se encuetran dos subclases: 
+; Albatros y Pinguinos.
 
 (defclass AVE
 	(is-a ANIMAL)
@@ -23,13 +34,23 @@
     (slot subclase (allowed-symbols Albatros Pinguino))
 )
 
-(definstances animal_nombre
+; He creado varias instancias. Las 3 primeras con Hombre, Albatros y Pinguino 
+; y sus correspondientes nombres como indica en el enunciado.
+; Y he añadido 2 subclases pinguino más para realizar las pruebas.
+; Además he añadido los atributos correspondientes que caracterizan a cada animal
+; por ejemplo, los Hombres razonan, las Albatros tienen las caracteristicas default
+; mientras que los pinguinos no vuelan.
+
+(definstances animal_instancias
     (of MAMIFERO (subclase Hombre) (nombre Pepe) (razona Si) )
     (of AVE (subclase Albatros) (nombre Alf))
     (of AVE (subclase Pinguino) (nombre Chilly) (vuela No))
     (of AVE (subclase Pinguino) (nombre Nani) (vuela No))
     (of AVE (subclase Pinguino) (nombre Tatti) (vuela No))
 )
+
+; Esta regla imprime exclusivamente la clase Ave y dentro de la clase
+; especificamente el nombre de los pinguinos. 
 
 (defrule imprimir
     (object (is-a AVE) (subclase Pinguino) (nombre ?n))

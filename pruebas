@@ -34,7 +34,8 @@ LLENAR -> + 1_jarra_llena
 VACIAR -> + 1_jarra_vacía
 
 ; random
-FIRE    1 llenar_jarra: *,f-2,f-1
+CLIPS> (run)
+FIRE    1 llenar_jarra: *,f-2
 <== f-2     (jarra (litros 0) (capacidad 4))
 ==> f-3     (jarra (litros 4) (capacidad 4))
 FIRE    2 verter_jarra: f-3,f-1
@@ -47,28 +48,23 @@ FIRE    3 verter_jarra: f-4,f-5
 ==> f-6     (jarra (litros 1) (capacidad 4))
 <== f-5     (jarra (litros 3) (capacidad 3))
 ==> f-7     (jarra (litros 3) (capacidad 3))
-FIRE    4 verter_jarra: f-6,f-7
-<== f-6     (jarra (litros 1) (capacidad 4))
-==> f-8     (jarra (litros 1) (capacidad 4))
+FIRE    4 vaciar_jarra: *,f-7,f-6
 <== f-7     (jarra (litros 3) (capacidad 3))
-==> f-9     (jarra (litros 3) (capacidad 3))
-FIRE    5 vaciar_jarra: *,f-9,f-8
-<== f-9     (jarra (litros 3) (capacidad 3))
-==> f-10    (jarra (litros 0) (capacidad 3))
-FIRE    6 volcar_jarra: f-8,f-10
-<== f-8     (jarra (litros 1) (capacidad 4))
-==> f-11    (jarra (litros 0) (capacidad 4))
-<== f-10    (jarra (litros 0) (capacidad 3))
-==> f-12    (jarra (litros 1) (capacidad 3))
-FIRE    7 llenar_jarra: *,f-11,f-12
-<== f-11    (jarra (litros 0) (capacidad 4))
-==> f-13    (jarra (litros 4) (capacidad 4))
-FIRE    8 verter_jarra: f-13,f-12
-<== f-13    (jarra (litros 4) (capacidad 4))
-==> f-14    (jarra (litros 2) (capacidad 4))
-<== f-12    (jarra (litros 1) (capacidad 3))
-==> f-15    (jarra (litros 3) (capacidad 3))
-FIRE    9 acabar: f-14
+==> f-8     (jarra (litros 0) (capacidad 3))
+FIRE    5 volcar_jarra: f-6,f-8
+<== f-6     (jarra (litros 1) (capacidad 4))
+==> f-9     (jarra (litros 0) (capacidad 4))
+<== f-8     (jarra (litros 0) (capacidad 3))
+==> f-10    (jarra (litros 1) (capacidad 3))
+FIRE    6 llenar_jarra: *,f-9
+<== f-9     (jarra (litros 0) (capacidad 4))
+==> f-11    (jarra (litros 4) (capacidad 4))
+FIRE    7 verter_jarra: f-11,f-10
+<== f-11    (jarra (litros 4) (capacidad 4))
+==> f-12    (jarra (litros 2) (capacidad 4))
+<== f-10    (jarra (litros 1) (capacidad 3))
+==> f-13    (jarra (litros 3) (capacidad 3))
+FIRE    8 acabar: f-12
 Fin
 
 ; depth
