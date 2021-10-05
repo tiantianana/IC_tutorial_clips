@@ -64,7 +64,6 @@
 ; para evitar que se produzca un bucle llenar-vaciar-llenar..
 
 (defrule volcar_jarra
-    (declare (salience 10))
     ?jarra1 <- (jarra (capacidad ?c1) (litros ?l1)) 
     ?jarra2 <- (jarra (capacidad ?c2) (litros ?l2)) 
     (test (neq (+ ?l1 ?l2) 0))
