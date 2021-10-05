@@ -22,6 +22,25 @@
 
 ; REGLAS:
 
+; Regla de salida: indica cuándo el sistema de producción ha alcanzado el estado final.
+; Es la primera regla que se comprueba, ya que si satisface esta condición significa que el
+; problema ha terminado. Por ello utilizamos un declare salience tan alto, para que se ejecute
+; la primera regla independientemente del tipo de busqueda (depth, random ...).
+
+(defrule acabar
+  (declare (salience 10))
+  ?jarra1 <- (jarra (capacidad ?c1) (litros ?l1)) 
+  ?jarra2 <- (jarra (capacidad ?c2) (litros ?l2)) 
+  (test (> ?c1 ?c2))
+  (test ( = ?l1 2))
+  =>
+  (printout t "Fin" crlf)
+  (retract ?jarra1)
+  (retract ?jarra2)
+  (halt)
+)
+
+
 ; Llenar jarra: ponemos los litros al mismo valor que la capacidad. Hemos asumido que solo
 ; se llena una jarra si la otra está vacia para poder pasar agua de una jarra a otra. 
 ; y siempre se llena la jarra si esta esta vacia y si es la más grande.
@@ -92,23 +111,6 @@
     (modify ?jarra1 (litros (- ?l1 (- ?c2 ?l2))))
     (modify ?jarra2 (litros ?c2))
 )
-
-; Regla de salida: indica cuándo el sistema de producción ha alcanzado el estado final.
-; Es la primera regla que se comprueba, ya que si satisface esta condición significa que el
-; problema ha terminado. Por ello utilizamos un declare salience tan alto, para que se ejecute
-; la primera regla independientemente del tipo de busqueda (depth, random ...).
-
-(defrule acabar
-  (declare (salience 1000))
-  ?jarra1 <- (jarra (capacidad ?c1) (litros ?l1)) 
-  ?jarra2 <- (jarra (capacidad ?c2) (litros ?l2)) 
-  (test (> ?c1 ?c2))
-  (test ( = ?l1 2))
-  =>
-  (printout t "Fin" crlf)
-  (halt)
-)
-
 
 ; Solución a las preguntas:
 
