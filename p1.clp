@@ -24,8 +24,7 @@
 
 ; Regla de salida: indica cuándo el sistema de producción ha alcanzado el estado final.
 ; Es la primera regla que se comprueba, ya que si satisface esta condición significa que el
-; problema ha terminado. Por ello utilizamos un declare salience tan alto, para que se ejecute
-; la primera regla independientemente del tipo de busqueda (depth, random ...).
+; problema ha terminado.
 
 (defrule acabar
   (declare (salience 10))
@@ -79,8 +78,6 @@
 ; Comprobamos que la jarra1 es mayor que la jarra2.
 ; Finalmente obtenemos que la jarra1 ahora tiene 0 litros pues ya están vertidos en la otra jarra;
 ; y la otra jarra tiene la suma de los litros de ambas.
-; Hemos añadido un declare salience 10 a que tiene más prioridad que el resto de las reglas 
-; para evitar que se produzca un bucle llenar-vaciar-llenar..
 
 (defrule volcar_jarra
     ?jarra1 <- (jarra (capacidad ?c1) (litros ?l1)) 
