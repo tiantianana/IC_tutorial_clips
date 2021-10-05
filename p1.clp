@@ -101,7 +101,10 @@
 
 (defrule acabar
   (declare (salience 1000))
-  ?jarra <- (jarra (capacidad 4) (litros 2))
+  ?jarra1 <- (jarra (capacidad ?c1) (litros ?l1)) 
+  ?jarra2 <- (jarra (capacidad ?c2) (litros ?l2)) 
+  (test (> ?c1 ?c2))
+  (test ( = ?l1 2))
   =>
   (printout t "Fin" crlf)
   (halt)
